@@ -1,4 +1,4 @@
-namespace TorteLand.WebApi;
+namespace WebAPI;
 
 public class WeatherForecast
 {
