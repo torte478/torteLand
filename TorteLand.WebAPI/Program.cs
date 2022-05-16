@@ -4,15 +4,19 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.IdentityModel.Tokens;
 using Microsoft.OpenApi.Models;
 using Swashbuckle.AspNetCore.Filters;
-using WebAPI.Data;
+using TorteLand;
+using TorteLand.PostgreSql.Models;
+using TorteLand.WebAPI2.Auth;
+using Article = TorteLand.Article;
+using Articles = TorteLand.Articles;
 
 var builder = WebApplication.CreateBuilder(args);
 
 builder.Services.AddControllers();
-builder.Services.AddDbContext<DataContext>(
+builder.Services.AddDbContext<Context>(
     options =>
     {
-        options.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection"));
+        options.UseNpgsql(builder.Configuration.GetConnectionString("DefaultConnection"));
     });
 
 builder.Services.AddEndpointsApiExplorer();
@@ -39,11 +43,18 @@ builder.Services
                                                        ValidateIssuerSigningKey = true,
                                                        IssuerSigningKey = new SymmetricSecurityKey(
                                                            Encoding.UTF8.GetBytes(
-                                                               builder.Configuration.GetSection("AppSettings:Token").Value)),
+                                                               builder.Configuration.GetSection("Auth:Token").Value)),
                                                        ValidateIssuer = false,
                                                        ValidateAudience = false
                                                    };
            });
+
+builder.Services
+       .AddSingleton<IAuth>(new Auth(
+                                builder.Configuration.GetSection("Auth:Token").Value,
+                                Encoding.UTF8))
+       .AddScoped<ICrudl<int, Article>, TorteLand.PostgreSql.Articles>()
+       .AddScoped<IArticles, Articles>();
 
 var app = builder.Build();
 
