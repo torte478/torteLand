@@ -1,5 +1,6 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using TorteLand.WebAPI2.Auth;
+using TorteLand.WebAPI2.Dto;
 
 namespace TorteLand.WebAPI2.Controllers;
 
@@ -27,9 +28,9 @@ public class AuthController : ControllerBase
     #endif
 
     [HttpPost("login")]
-    public ActionResult<string> Login(User user)
+    public ActionResult<AuthToken> Login(User user)
     {
         var token = _auth.Login(user.Password);
-        return Ok(token);
+        return Ok(new AuthToken(token));
     }
 }

@@ -1,0 +1,9 @@
+<h1>Login</h1>
+<form (ngSubmit)="onSubmit()">
+    <label>Password</label>
+    <input type="text" class="form-control" id="password"
+        required
+        [(ngModel)]="credentials.password" name="password">
+
+    <button type="submit">Submit</button>
+</form>
