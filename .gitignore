@@ -187,3 +187,4 @@ FakesAssemblies/
 .idea
 /secret
 /TorteLand.WebAPI/appsettings.Development.json
+/dotnet/secret
