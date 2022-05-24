@@ -20,27 +20,22 @@ namespace TorteLand.PostgreSql.Models
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
-            modelBuilder.Entity<Article>(entity =>
-            {
-                entity.ToTable("article");
+            modelBuilder.Entity<Article>(
+                entity =>
+                {
+                    entity.ToTable("article");
 
-                entity.Property(e => e.Id).HasColumnName("id");
+                    entity.Property(e => e.Id).HasColumnName("id");
 
-                entity.Property(e => e.Body)
-                    .HasMaxLength(1000)
-                    .HasColumnName("body");
+                    entity.Property(e => e.Body)
+                          .HasMaxLength(1000)
+                          .HasColumnName("body");
 
-                entity.Property(e => e.ParentId).HasColumnName("parent_id");
+                    entity.Property(e => e.Title)
+                          .HasMaxLength(64)
+                          .HasColumnName("title");
+                });
 
-                entity.Property(e => e.Title)
-                    .HasMaxLength(64)
-                    .HasColumnName("title");
-
-                entity.HasOne(d => d.Parent)
-                    .WithMany(p => p.InverseParent)
-                    .HasForeignKey(d => d.ParentId)
-                    .HasConstraintName("article_parent_id_fkey");
-            });
 
             OnModelCreatingPartial(modelBuilder);
         }

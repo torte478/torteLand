@@ -34,9 +34,4 @@ public sealed class ArticleController : ControllerBase
     [HttpDelete]
     public async Task<ActionResult<Article>> Delete(int id)
         => Ok(await _articles.DeleteAsync(id));
-
-    [HttpGet("children/{id}")]
-    public async Task<ActionResult<Article[]>> GetChildren(int id)
-        => Ok(await _articles.ToChildrenAsync(id));
-
 }

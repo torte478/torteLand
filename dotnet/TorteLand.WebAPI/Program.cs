@@ -49,6 +49,7 @@ builder.Services
                                                    };
            });
 
+// TODO: to startup ?
 builder.Services
        .AddSingleton<IAuth>(new Auth(
                                 builder.Configuration.GetSection("Auth:Token").Value,

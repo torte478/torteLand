@@ -30,7 +30,6 @@ public sealed class Articles : ICrudl<int, Article>
     {
         var entity = await GetAsync(value.Id);
 
-        entity.ParentId = value.Parent;
         entity.Title = value.Title;
         entity.Body = value.Body;
         await _context.SaveChangesAsync();

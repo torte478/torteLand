@@ -33,12 +33,4 @@ public sealed class Articles : IArticles
     {
         return _crudl.ToAsyncEnumerable();
     }
-
-    public async Task<Article[]> ToChildrenAsync(int id)
-    {
-        return await _crudl
-               .ToAsyncEnumerable()
-               .Where(x => x.Parent == id)
-               .ToArrayAsync();
-    }
 }
