@@ -5,20 +5,24 @@ import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 
 import { AppComponent } from './app.component';
-import { LoginFormComponent } from './login-form/login-form.component';
-import { ArticleViewComponent } from './article-view/article-view.component';
+
+import { AppRoutingModule } from './app-routing.module';
+import { LoginFormComponent } from './components/login-form/login-form.component';
+import { ArticlesComponent } from './components/articles/articles.component';
+
 
 @NgModule({
   declarations: [
     AppComponent,
     LoginFormComponent,
-    ArticleViewComponent
+    ArticlesComponent,
   ],
   imports: [
     BrowserModule,
     HttpClientModule,
     CommonModule,
-    FormsModule
+    FormsModule,
+    AppRoutingModule
   ],
   providers: [],
   bootstrap: [AppComponent]

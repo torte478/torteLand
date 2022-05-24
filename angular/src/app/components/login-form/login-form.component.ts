@@ -1,7 +1,7 @@
 import { Component } from '@angular/core';
 
-import { AuthService } from '../services/auth.service';
-import { Credentials } from '../models/credentials';
+import { AuthService } from '../../services/auth.service';
+import { Credentials } from '../../models/credentials';
 
 @Component({
   selector: 'app-login-form',
