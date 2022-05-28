@@ -8,13 +8,5 @@ internal static class Mapping
         => new(
             origin.Id,
             origin.Title,
-            origin.Body);
-
-    public static DbArticle Map(this Article origin)
-        => new()
-           {
-               Id = origin.Id,
-               Title = origin.Title,
-               Body = origin.Body
-           };
+            string.Empty);
 }

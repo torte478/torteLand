@@ -4,7 +4,7 @@ using Microsoft.AspNetCore.Mvc;
 namespace TorteLand.WebAPI2.Controllers;
 
 [ApiController]
-[Authorize]
+// [Authorize]
 [Route("api/[controller]")]
 public sealed class ArticleController : ControllerBase
 {

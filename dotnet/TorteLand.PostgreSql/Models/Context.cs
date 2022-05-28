@@ -17,25 +17,40 @@ namespace TorteLand.PostgreSql.Models
         }
 
         public virtual DbSet<Article> Articles { get; set; }
+        public virtual DbSet<ArticleBody> ArticleBodies { get; set; }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
-            modelBuilder.Entity<Article>(
-                entity =>
-                {
-                    entity.ToTable("article");
+            modelBuilder.Entity<Article>(entity =>
+                                         {
+                                             entity.ToTable("article");
 
-                    entity.Property(e => e.Id).HasColumnName("id");
+                                             entity.Property(e => e.Id).HasColumnName("id");
 
-                    entity.Property(e => e.Body)
-                          .HasMaxLength(1000)
-                          .HasColumnName("body");
+                                             entity.Property(e => e.BodyId).HasColumnName("body_id");
 
-                    entity.Property(e => e.Title)
-                          .HasMaxLength(64)
-                          .HasColumnName("title");
-                });
+                                             entity.Property(e => e.Title)
+                                                   .IsRequired()
+                                                   .HasMaxLength(100)
+                                                   .HasColumnName("title");
 
+                                             entity.HasOne(d => d.Body)
+                                                   .WithMany(p => p.Articles)
+                                                   .HasForeignKey(d => d.BodyId)
+                                                   .OnDelete(DeleteBehavior.ClientSetNull)
+                                                   .HasConstraintName("article_body_id");
+                                         });
+
+            modelBuilder.Entity<ArticleBody>(entity =>
+                                             {
+                                                 entity.ToTable("article_body");
+
+                                                 entity.Property(e => e.Id).HasColumnName("id");
+
+                                                 entity.Property(e => e.Body)
+                                                       .IsRequired()
+                                                       .HasColumnName("body");
+                                             });
 
             OnModelCreatingPartial(modelBuilder);
         }
