@@ -1,4 +1,5 @@
 import { Component } from '@angular/core';
+import { Router } from '@angular/router';
 
 import { AuthService } from '../../services/auth.service';
 import { Credentials } from '../../models/credentials';
@@ -12,10 +13,16 @@ export class LoginFormComponent{
 
   credentials = new Credentials('');
 
-  constructor(private authSerivce: AuthService) { }
+  constructor(
+    private router: Router,
+    private authSerivce: AuthService
+    ) { }
 
   onSubmit() {
     this.authSerivce.login(this.credentials)
-      .subscribe(_ => console.log(_));
+      .subscribe(success => {
+        if (!!success)
+          this.router.navigate(['/articles'])
+      });
   }
 }

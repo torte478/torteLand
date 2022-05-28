@@ -20,6 +20,7 @@ internal sealed class Auth : IAuth
             new SymmetricSecurityKey(_encoding.GetBytes(token)),
             SecurityAlgorithms.HmacSha512Signature);
 
+        // TODO : google it and fix
         _salt = ReadFile("salt");
         _hash = ReadFile("hash");
     }

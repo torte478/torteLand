@@ -26,7 +26,9 @@ export class AuthService {
   login(credentials: Credentials): Observable<boolean> {
     return this.http.post<JwtToken>(this.url, credentials, this.httpOptions)
       .pipe(
-        tap(x => this.jwtToken = x.token),
+        tap(x => {
+          localStorage.setItem('id_token', x.token)
+        }),
         map(x => true),
         catchError(this.handleError<boolean>('login', false)));
   }

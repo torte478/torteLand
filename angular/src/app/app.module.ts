@@ -1,6 +1,6 @@
 import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
-import { HttpClientModule} from '@angular/common/http';
+import { HttpClientModule, HTTP_INTERCEPTORS} from '@angular/common/http';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 
@@ -11,6 +11,7 @@ import { LoginFormComponent } from './components/login-form/login-form.component
 import { ArticlesComponent } from './components/articles/articles.component';
 import { ArticleComponent } from './components/article/article.component';
 import { ArticleCreateComponent } from './components/article-create/article-create.component';
+import { AuthInterceptor } from './AuthInterceptor';
 
 
 @NgModule({
@@ -28,7 +29,9 @@ import { ArticleCreateComponent } from './components/article-create/article-crea
     FormsModule,
     AppRoutingModule
   ],
-  providers: [],
+  providers: [ 
+    { provide: HTTP_INTERCEPTORS, useClass: AuthInterceptor, multi: true }
+  ],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
