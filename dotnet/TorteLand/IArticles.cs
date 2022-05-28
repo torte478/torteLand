@@ -1,5 +1,5 @@
 ﻿namespace TorteLand;
 
-public interface IArticles : ICrudl<int, Article>
+public interface IArticles : IAcrud<int, Article>
 {
 }

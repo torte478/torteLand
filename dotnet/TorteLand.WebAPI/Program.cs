@@ -54,7 +54,7 @@ builder.Services
        .AddSingleton<IAuth>(new Auth(
                                 builder.Configuration.GetSection("Auth:Token").Value,
                                 Encoding.UTF8))
-       .AddScoped<ICrudl<int, Article>, TorteLand.PostgreSql.Articles>()
+       .AddScoped<IAcrud<int, Article>, TorteLand.PostgreSql.Articles>()
        .AddScoped<IArticles, Articles>();
 
 var app = builder.Build();

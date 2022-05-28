@@ -2,35 +2,35 @@
 
 public sealed class Articles : IArticles
 {
-    private readonly ICrudl<int, Article> _crudl;
+    private readonly IAcrud<int, Article> _acrud;
 
-    public Articles(ICrudl<int, Article> crudl)
+    public Articles(IAcrud<int, Article> acrud)
     {
-        _crudl = crudl;
+        _acrud = acrud;
+    }
+
+    public IAsyncEnumerable<Article> AllAsync()
+    {
+        return _acrud.AllAsync();
     }
 
     public Task<Article> CreateAsync(Article value)
     {
-        return _crudl.CreateAsync(value);
+        return _acrud.CreateAsync(value);
     }
 
     public Task<Article> ReadAsync(int key)
     {
-        return _crudl.ReadAsync(key);
+        return _acrud.ReadAsync(key);
     }
 
     public Task<Article> UpdateAsync(Article value)
     {
-        return _crudl.UpdateAsync(value);
+        return _acrud.UpdateAsync(value);
     }
 
     public Task<Article> DeleteAsync(int key)
     {
-        return _crudl.DeleteAsync(key);
-    }
-
-    public IAsyncEnumerable<Article> ToAsyncEnumerable()
-    {
-        return _crudl.ToAsyncEnumerable();
+        return _acrud.DeleteAsync(key);
     }
 }

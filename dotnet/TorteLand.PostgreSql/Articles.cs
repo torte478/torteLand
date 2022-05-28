@@ -5,13 +5,19 @@ using DbArticle = TorteLand.PostgreSql.Models.Article;
 
 namespace TorteLand.PostgreSql;
 
-public sealed class Articles : ICrudl<int, Article>
+public sealed class Articles : IAcrud<int, Article>
 {
     private readonly Context _context;
 
     public Articles(Context context)
     {
         _context = context;
+    }
+
+    public async IAsyncEnumerable<Article> AllAsync()
+    {
+        await foreach (var entity in _context.Articles)
+            yield return entity.Map();
     }
 
     public async Task<Article> CreateAsync(Article value)
@@ -65,12 +71,6 @@ public sealed class Articles : ICrudl<int, Article>
         await transaction.CommitAsync();
 
         return article.Map();
-    }
-
-    public async IAsyncEnumerable<Article> ToAsyncEnumerable()
-    {
-        await foreach (var entity in _context.Articles)
-            yield return entity.Map();
     }
 
     private async Task<(DbArticle, ArticleBody)> ToArticleAsync(int id)

@@ -17,7 +17,7 @@ public sealed class ArticleController : ControllerBase
 
     [HttpGet]
     public async Task<ActionResult<Article[]>> Get()
-        => Ok(await _articles.ToAsyncEnumerable().ToArrayAsync());
+        => Ok(await _articles.AllAsync().ToArrayAsync());
 
     [HttpGet("{id}")]
     public async Task<ActionResult<Article>> Get(int id)
