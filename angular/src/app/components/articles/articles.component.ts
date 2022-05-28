@@ -23,7 +23,7 @@ export class ArticlesComponent implements OnInit {
       .subscribe(articles => this.articles = articles);
   }
 
-  onCreateClick(): void {
+  onCreate(): void {
     this.router.navigate(['/articles/create']);
   }
 
