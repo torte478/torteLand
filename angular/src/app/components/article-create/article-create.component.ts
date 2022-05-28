@@ -25,7 +25,10 @@ export class ArticleCreateComponent implements OnInit {
 
   onSubmit() {
     this.articleService.create(this.article)
-      .subscribe(_ => this.router.navigate(['/articles']));
+      .subscribe(x => {
+        const route = `/article/${x.id}`
+        this.router.navigate([route])
+      });
   }
 
   goBack() {

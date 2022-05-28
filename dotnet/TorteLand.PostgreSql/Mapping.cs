@@ -1,4 +1,5 @@
-﻿using DbArticle = TorteLand.PostgreSql.Models.Article;
+﻿using TorteLand.PostgreSql.Models;
+using DbArticle = TorteLand.PostgreSql.Models.Article;
 
 namespace TorteLand.PostgreSql;
 
@@ -9,4 +10,10 @@ internal static class Mapping
             origin.Id,
             origin.Title,
             string.Empty);
+
+    public static Article Map(this (DbArticle article, ArticleBody body) _)
+        => new(
+            _.article.Id,
+            _.article.Title,
+            _.body.Body);
 }

@@ -1,6 +1,5 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
-import { Location } from '@angular/common';
 
 import { Article } from 'src/app/models/article';
 import { ArticlesService } from 'src/app/services/articles.service';
@@ -13,15 +12,31 @@ import { ArticlesService } from 'src/app/services/articles.service';
 export class ArticleComponent implements OnInit {
 
   article: Article | undefined;
+  isEdit: Boolean = false;
 
   constructor(
     private route: ActivatedRoute,
-    private location: Location,
     private articleService: ArticlesService) { }
 
   ngOnInit(): void {
     const id = Number(this.route.snapshot.paramMap.get('id'));
-    this.articleService.get(id)
+    this.articleService.read(id)
       .subscribe(article => this.article = article);
+  }
+
+  startEdit(): void {
+    this.isEdit = true;
+  }
+
+  onEditCancel(): void {
+    this.isEdit = false;
+  }
+
+  onSave(): void {
+    this.articleService.update(this.article!)
+      .subscribe(x => {
+        this.article = x;
+        this.isEdit = false;
+      });
   }
 }

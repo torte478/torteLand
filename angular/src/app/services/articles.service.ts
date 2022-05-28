@@ -27,11 +27,11 @@ export class ArticlesService {
       );
   }
 
-  get(id: number): Observable<Article> {
+  read(id: number): Observable<Article> {
     const url = `${this.url}/${id}`;
     return this.http.get<Article>(url)
       .pipe(
-        catchError(this.handleError<Article>('get'))
+        catchError(this.handleError<Article>('read'))
       );
   }
 
@@ -39,6 +39,13 @@ export class ArticlesService {
     return this.http.post<Article>(this.url, article, this.httpOptions)
       .pipe(
         catchError(this.handleError<Article>('create'))
+      );
+  }
+
+  update(article: Article): Observable<Article> {
+    return this.http.put<Article>(this.url, article, this.httpOptions)
+      .pipe(
+        catchError(this.handleError<Article>('update'))
       );
   }
 

@@ -1,4 +1,6 @@
 import { Component, OnInit } from '@angular/core';
+import { Router } from '@angular/router';
+
 import { Article } from 'src/app/models/article';
 import { ArticlesService } from 'src/app/services/articles.service';
 
@@ -11,11 +13,18 @@ export class ArticlesComponent implements OnInit {
 
   articles: Article[] = [];
 
-  constructor(private articleService: ArticlesService) { }
+  constructor(
+    private router: Router,
+    private articleService: ArticlesService
+    ) { }
 
   ngOnInit(): void {
     this.articleService.all()
       .subscribe(articles => this.articles = articles);
+  }
+
+  onCreateClick(): void {
+    this.router.navigate(['/articles/create']);
   }
 
 }

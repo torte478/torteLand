@@ -1,4 +1,46 @@
 <div *ngIf="article">
-    <h2>{{article.title}}</h2>
-    {{article.body}}
+    <h1>{{article.title}}</h1>
+
+    <div *ngIf="isEdit">
+        <form (ngSubmit)="onSave()">
+            <label>Title: </label>
+            <input type="text" class="form-control" id="title"
+                required
+                [(ngModel)]="article.title" name="title">
+
+            <br>
+            <br>
+
+            <label>Body: </label>
+            <br>
+            <input type="text" class="form-control" id="body"
+                required
+                [(ngModel)]="article.body" name="body">
+
+            <br>
+            <br>
+
+            <button type="submit">Save</button>
+            <br>
+            <button type="button" (click)="onEditCancel()">Cancel</button>
+        </form>
+    </div>
+
+    <div *ngIf="!isEdit">
+        <button type="button" (click)="startEdit()">Edit</button>
+
+        <br>
+        <br>
+
+        {{article.body}}
+    </div>
 </div>
+
+<div *ngIf="!article">
+    No article
+</div>
+
+<br>
+<br>
+
+<a routerLink="/articles">Back</a>

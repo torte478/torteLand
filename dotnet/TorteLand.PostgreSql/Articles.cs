@@ -39,9 +39,9 @@ public sealed class Articles : IAcrud<int, Article>
 
     public async Task<Article> ReadAsync(int key)
     {
-        var (article, body) = await ToArticleAsync(key);
+        var article = await ToArticleAsync(key);
 
-        return new Article(article.Id, article.Title, body.Body);
+        return article.Map();
     }
 
     public async Task<Article> UpdateAsync(Article value)
@@ -56,13 +56,13 @@ public sealed class Articles : IAcrud<int, Article>
         await _context.SaveChangesAsync();
         await transaction.CommitAsync();
 
-        return article.Map();
+        return (article, body).Map();
     }
 
     public async Task<Article> DeleteAsync(int key)
     {
         await using var transaction = await _context.Database.BeginTransactionAsync();
-        
+
         var (article, body) = await ToArticleAsync(key);
         _context.Articles.Remove(article);
         _context.ArticleBodies.Remove(body);
