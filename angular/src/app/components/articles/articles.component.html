@@ -1,6 +1,15 @@
 <h2>Articles</h2>
-<ul>
-    <li *ngFor="let article of articles">
+<div>
+    <a routerLink="/articles/create">Create new...</a>
+</div>
+
+<br>
+
+<div>
+    <a *ngFor="let article of articles"
+        routerLink="/article/{{article.id}}">
         {{article.title}}
-    </li>
-</ul>
+        <br>
+    </a>
+</div>
+    

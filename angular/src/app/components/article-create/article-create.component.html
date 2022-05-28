@@ -1,0 +1,25 @@
+<h1>Create new article</h1>
+
+<form (ngSubmit)="onSubmit()">
+    <label>Title </label>
+    <input type="text" class="form-control" id="title"
+        required
+        [(ngModel)]="article.title" name="title">
+
+    <br>
+    <br>
+
+    <label>Body </label>
+    <input type="text" class="form-control" id="body"
+        required
+        [(ngModel)]="article.body" name="body">
+
+    <br>
+    <br>
+
+    <button type="submit">Submit</button>
+</form>
+
+<br>
+
+<button type="button" (click)="goBack()">Back</button>

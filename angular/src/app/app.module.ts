@@ -9,6 +9,8 @@ import { AppComponent } from './app.component';
 import { AppRoutingModule } from './app-routing.module';
 import { LoginFormComponent } from './components/login-form/login-form.component';
 import { ArticlesComponent } from './components/articles/articles.component';
+import { ArticleComponent } from './components/article/article.component';
+import { ArticleCreateComponent } from './components/article-create/article-create.component';
 
 
 @NgModule({
@@ -16,6 +18,8 @@ import { ArticlesComponent } from './components/articles/articles.component';
     AppComponent,
     LoginFormComponent,
     ArticlesComponent,
+    ArticleComponent,
+    ArticleCreateComponent,
   ],
   imports: [
     BrowserModule,

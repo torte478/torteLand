@@ -1,4 +1,4 @@
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable, of } from 'rxjs';
 import { catchError, map, tap } from 'rxjs/operators';
@@ -12,13 +12,33 @@ export class ArticlesService {
 
   private url = 'api/Article';
 
+  private httpOptions = {
+    headers: new HttpHeaders({
+      'Content-Type': 'application/json'
+    })
+  };
+
   constructor(private http: HttpClient) { }
 
-  getArticles(): Observable<Article[]> {
+  all(): Observable<Article[]> {
     return this.http.get<Article[]>(this.url)
       .pipe(
-        tap(_ => console.log('success')),
-        catchError(this.handleError<Article[]>('getArticles', []))
+        catchError(this.handleError<Article[]>('all', []))
+      );
+  }
+
+  get(id: number): Observable<Article> {
+    const url = `${this.url}/${id}`;
+    return this.http.get<Article>(url)
+      .pipe(
+        catchError(this.handleError<Article>('get'))
+      );
+  }
+
+  create(article: Article): Observable<Article> {
+    return this.http.post<Article>(this.url, article, this.httpOptions)
+      .pipe(
+        catchError(this.handleError<Article>('create'))
       );
   }
 
