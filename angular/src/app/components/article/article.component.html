@@ -13,10 +13,11 @@
 
             <label>Body: </label>
             <br>
-            <input type="text" class="form-control" id="body"
-                required
-                [(ngModel)]="article.body" name="body">
 
+            <textarea name="body" style="width:75%" rows="25"
+                [(ngModel)]="article.body">
+            </textarea>
+            
             <br>
             <br>
 
@@ -32,7 +33,9 @@
         <br>
         <br>
 
-        {{article.body}}
+        <div style="white-space:pre">
+            {{article.body}}
+        </div>
     </div>
 </div>
 
